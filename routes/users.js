@@ -7,7 +7,8 @@ var userModel = require('../database/userModel');
 router.get('/', function(req, res, next) {
 
     userModel.findOne().then(function(user) {
-        res.send(user.get('firstName'));
+        // res.send(user.get('firstName'));
+        res.render('index', {title: user.get('firstName')});
     });
 
 });
