@@ -3,7 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', {title: 'Admin'});
+    req.session.title = 'abc';
+    console.log(req.session.title);
+    res.render('index', {title: req.session.title});
 });
 
 module.exports = router;

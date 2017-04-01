@@ -1,16 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var UsersController = require('../controllers/UsersController');
 
-var userModel = require('../database/userModel');
+UsersController.routes(router);
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-
-    userModel.findOne().then(function(user) {
-        // res.send(user.get('firstName'));
-        res.render('index', {title: user.get('firstName')});
-    });
-
-});
+// router.get('/', function(req, res, next) {
+//     console.log(req.session.title);
+//     res.render('index', {title: req.session.title});
+// });
 
 module.exports = router;

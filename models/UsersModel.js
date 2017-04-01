@@ -1,4 +1,4 @@
-var db = require('./connection.js');
+var db = require('../configs/DatabaseConfig.js');
 var Sequelize = require('sequelize');
 
 module.exports = db.define('users', {
