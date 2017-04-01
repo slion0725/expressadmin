@@ -1,0 +1,23 @@
+{
+  "name": "htmllayout_expressadmin",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "miles <slion0725@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "holderjs": "^2.9.4",
+    "uikit": "^3.0.0"
+  }
+}
