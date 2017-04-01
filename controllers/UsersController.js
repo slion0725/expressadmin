@@ -2,17 +2,17 @@ var UsersModel = require('../models/UsersModel');
 
 module.exports = {
     routes: function(router) {
+        // for layout
         router.get('/', this.index);
         router.get('/list', this.list);
-
-        // router.get('/:id', this.show);
-        // router.get('/add', this.add);
-        // router.get('/edit/:id', this.edit);
-        //
-        // router.post('/', this.create);
-        // router.put('/:id', this.store);
-        // router.delete('/:id', this.destroy);
-        return router;
+        // for form
+        router.get('/:id', this.show);
+        router.get('/add', this.add);
+        router.get('/edit/:id', this.edit);
+        // // for api
+        router.post('/', this.create);
+        router.put('/:id', this.store);
+        router.delete('/:id', this.destroy);
     },
     index: function(req, res, next) {
         UsersModel.findOne().then(function(user) {
@@ -21,14 +21,26 @@ module.exports = {
                 body: user.get('firstName')
             });
         });
-        // res.send('999');
     },
     list: function(res, req, next) {
-        console.log(req.session);
-        // UsersModel.findOne().then(function(user) {
-        //     // res.send(user.get('firstName'));
-        //     // res.render('index', {title: user.get('firstName')});
         res.render('index', {title: req.session.title});
-        // });
-    }
+    },
+    show: function(res, req, next) {
+        res.render('index', {title: req.session.title});
+    },
+    add: function(res, req, next) {
+        res.render('index', {title: req.session.title});
+    },
+    edit: function(res, req, next) {
+        res.render('index', {title: req.session.title});
+    },
+    create: function(res, req, next) {
+        res.render('index', {title: req.session.title});
+    },
+    store: function(res, req, next) {
+        res.render('index', {title: req.session.title});
+    },
+    destroy: function(res, req, next) {
+        res.render('index', {title: req.session.title});
+    },
 }
