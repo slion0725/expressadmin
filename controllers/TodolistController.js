@@ -17,8 +17,17 @@ module.exports = {
         console.log(req.baseUrl);
         console.log(req.body);
         console.log(req.params);
-        res.render('todolist', {
-            title: 'todolist'
+
+        TodolistModel.findAll({
+            attributes: ['id', 'content'],
+            order: 'id DESC',
+            raw: true,
+        }).then(function(todolist) {
+            console.log(todolist);
+            res.render('todolist', {
+                title: 'todolist',
+                list: todolist
+            });
         });
     },
     add: function(req, res) {
@@ -31,12 +40,9 @@ module.exports = {
 
     },
     create: function(req, res) {
-      console.log(req.body);
-      console.log(req.params);
-        TodolistModel.build({
+        TodolistModel.create({
                 content: req.body.content
             })
-            .save()
             .then(function(todolist) {
                 res.status(200).json({
                     message: 'success'
@@ -48,9 +54,36 @@ module.exports = {
             });
     },
     store: function(req, res) {
-
+        TodolistModel.update({
+            content: req.body.content
+        }, {
+            where: {
+                id: parseInt(req.params.id)
+            }
+        }).then(function(todolist) {
+            res.status(200).json({
+                message: 'success'
+            });
+        }).catch(function(error) {
+            console.log(error);
+            res.status(422).json({
+                message: error
+            });
+        });
     },
     destroy: function(req, res) {
-        res.status(204);
+        TodolistModel.destroy({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        }).then(function(todolist) {
+            res.status(204).json({
+                message: 'success'
+            });
+        }).catch(function(error) {
+            res.status(422).json({
+                message: error
+            });
+        });
     },
 }
