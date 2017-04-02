@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var concatCss = require('gulp-concat-css');
 var sass = require('gulp-sass');
-// var gulpCompass = require('gulp-compass');
+var gulpCompass = require('gulp-compass');
 var notify = require('gulp-notify');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
@@ -11,7 +11,7 @@ gulp.task('js_plugins', function() {
     return gulp.src(
       [
         './bower_components/jquery/dist/jquery.min.js',
-        // './bower_components/bootstrap/dist/js/bootstrap.min.js',
+        './bower_components/bootstrap/dist/js/bootstrap.min.js',
         './bower_components/uikit/dist/js/uikit.min.js',
         './bower_components/uikit/dist/js/uikit-icons.min.js',
         './bower_components/holderjs/holder.min.js',
@@ -25,7 +25,7 @@ gulp.task('js_plugins', function() {
 gulp.task('css_plugins', function() {
     return gulp.src(
       [
-        // './bower_components/bootstrap/dist/css/bootstrap.min.css',
+        './bower_components/bootstrap/dist/css/bootstrap.min.css',
         './bower_components/uikit/dist/css/uikit.min.css',
       ]
     )
@@ -43,7 +43,7 @@ gulp.task('files_plugins', ['bootstrap'], function() {
 });
 
 gulp.task('scss', function() {
-    return gulp.src('./scss/**/*.scss')
+    return gulp.src('./dist/scss/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./dist/css'))
     // .pipe(gulpCompass({css: './dist/css', sass: './scss', image: './dist/images'}))
@@ -78,7 +78,7 @@ gulp.task('serve', ['scss'], function() {
 
 gulp.task('watch', function() {
     gulp.watch('./dist/js/*.js', ['scripts']);
-    gulp.watch('./scss/**/*.scss', ['scss']);
+    gulp.watch('./dist/scss/**/*.scss', ['scss']);
     gulp.watch("./*.html").on('change', reload);
 });
 
