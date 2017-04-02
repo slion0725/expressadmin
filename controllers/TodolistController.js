@@ -15,12 +15,7 @@ module.exports = {
         router.delete('/:id', this.destroy);
     },
     index: function(req, res, next) {
-        UsersModel.findOne().then(function(user) {
-            res.render('index', {
-                title: 'Todolist',
-                body: user.get('firstName')
-            });
-        });
+        res.render('todolist', {title: 'todolist'});
     },
     list: function(res, req, next) {
         res.render('index', {title: req.session.title});
