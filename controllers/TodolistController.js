@@ -1,41 +1,56 @@
-var UsersModel = require('../models/UsersModel');
+var TodolistModel = require('../models/TodolistModel');
 
 module.exports = {
     routes: function(router) {
-        // for layout
+        // for page
         router.get('/', this.index);
-        router.get('/list', this.list);
         // for form
-        router.get('/:id', this.show);
         router.get('/add', this.add);
         router.get('/edit/:id', this.edit);
         // // for api
+        router.get('/:id', this.show);
         router.post('/', this.create);
         router.put('/:id', this.store);
         router.delete('/:id', this.destroy);
     },
-    index: function(req, res, next) {
-        res.render('todolist', {title: 'todolist'});
+    index: function(req, res) {
+        console.log(req.baseUrl);
+        console.log(req.body);
+        console.log(req.params);
+        res.render('todolist', {
+            title: 'todolist'
+        });
     },
-    list: function(res, req, next) {
-        res.render('index', {title: req.session.title});
+    add: function(req, res) {
+
     },
-    show: function(res, req, next) {
-        res.render('index', {title: req.session.title});
+    edit: function(req, res) {
+
     },
-    add: function(res, req, next) {
-        res.render('index', {title: req.session.title});
+    show: function(req, res) {
+
     },
-    edit: function(res, req, next) {
-        res.render('index', {title: req.session.title});
+    create: function(req, res) {
+      console.log(req.body);
+      console.log(req.params);
+        TodolistModel.build({
+                content: req.body.content
+            })
+            .save()
+            .then(function(todolist) {
+                res.status(200).json({
+                    message: 'success'
+                });
+            }).catch(function(error) {
+                res.status(422).json({
+                    message: error
+                });
+            });
     },
-    create: function(res, req, next) {
-        res.render('index', {title: req.session.title});
+    store: function(req, res) {
+
     },
-    store: function(res, req, next) {
-        res.render('index', {title: req.session.title});
-    },
-    destroy: function(res, req, next) {
-        res.render('index', {title: req.session.title});
+    destroy: function(req, res) {
+        res.status(204);
     },
 }

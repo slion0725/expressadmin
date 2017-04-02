@@ -6,8 +6,11 @@ module.exports = db.define('todolist', {
         type: Sequelize.STRING,
         field: 'content'
     },
-    completed:{
-        type: Sequelize.Boolean,
-        field:'completed'
+    completed: {
+        type: Sequelize.BOOLEAN,
+        field: 'completed',
+        defaultValue: false,
     }
-}, {freezeTableName: true});
+}, {
+    freezeTableName: true
+});
