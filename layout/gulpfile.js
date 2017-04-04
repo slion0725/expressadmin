@@ -11,9 +11,10 @@ gulp.task('js_plugins', function() {
     return gulp.src(
       [
         './bower_components/jquery/dist/jquery.min.js',
-        './bower_components/bootstrap/dist/js/bootstrap.min.js',
+        // './bower_components/bootstrap/dist/js/bootstrap.min.js',
         './bower_components/uikit/dist/js/uikit.min.js',
         './bower_components/uikit/dist/js/uikit-icons.min.js',
+        './bower_components/vue/dist/vue.min.js',
         './bower_components/holderjs/holder.min.js',
       ]
     )
@@ -25,7 +26,7 @@ gulp.task('js_plugins', function() {
 gulp.task('css_plugins', function() {
     return gulp.src(
       [
-        './bower_components/bootstrap/dist/css/bootstrap.min.css',
+        // './bower_components/bootstrap/dist/css/bootstrap.min.css',
         './bower_components/uikit/dist/css/uikit.min.css',
       ]
     )
