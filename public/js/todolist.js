@@ -1,17 +1,18 @@
 $(function() {
 
-    let todolistData = {
+    var todolistData = {
         content: null,
         rows: {},
         page: 1,
         limit: 3,
         count: 0,
+        filter: 'all',
         offset: function() {
             return this.limit * (this.page - 1)
         }
     }
 
-    let todolist = new Vue({
+    var todolist = new Vue({
         el: '#vue-app',
         data: todolistData,
         mounted: function() {
@@ -24,25 +25,27 @@ $(function() {
                 }, function(rs) {
                     if (rs.status === 'success') {
                         todolist.content = null
-                        todolist.changePage(1)
+                        todolist.loadPage(1)
                     }
-                })
+                },'json')
             },
             getTodolist: function() {
                 $.get('todolist/list', {
                     limit: todolistData.limit,
                     offset: todolistData.offset()
                 }, function(rs) {
-                    console.log(rs.data.todolists)
                     if (rs.status === 'success') {
                         todolistData.rows = rs.data.todolists.rows
                         todolistData.count = rs.data.todolists.count
                     }
                 })
             },
-            changePage: function(page) {
+            loadPage: function(page) {
                 this.page = page
                 this.getTodolist()
+            },
+            clearCompleted: function(){
+              UIkit.notification('Cleared', {status:'success'});
             }
         }
     })
