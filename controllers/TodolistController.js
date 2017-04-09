@@ -26,7 +26,8 @@ module.exports = {
     add: function(req, res) {},
     edit: function(req, res) {},
     list: function(req, res) {
-        TodolistModel.findAndCountAll({
+
+        var Operators = {
             attributes: [
                 'id', 'content', 'completed', 'createdAt'
             ],
@@ -34,7 +35,31 @@ module.exports = {
             limit: parseInt(req.query.limit),
             offset: parseInt(req.query.offset),
             raw: true
-        }).then(function(todolists) {
+        };
+
+        switch (req.query.filter) {
+            case('active'):
+                Operators.where = {
+                    completed: false
+                };
+                break;
+            case('completed'):
+                Operators.where = {
+                    completed: true
+                };
+                break;
+            default:
+                Operators.$or = [
+                    {
+                        completed: true
+                    }, {
+                        completed: false
+                    }
+                ];
+                break;
+        };
+
+        TodolistModel.findAndCountAll(Operators).then(function(todolists) {
             console.log(todolists);
             res.status(200).json({
                 status: 'success',

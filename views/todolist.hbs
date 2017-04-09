@@ -2,6 +2,7 @@
     [v-cloak] {
         display: none;
     }
+
     /*[uk-close] svg:first-child,
     [uk-pagination-previous] svg:first-child,
     [uk-pagination-next] svg:first-child {
@@ -29,13 +30,13 @@
     <!-- <hr> -->
     <div class="uk-flex uk-flex-center">
         <ul class="uk-subnav uk-subnav-divider" uk-margin>
-            <li v-bind:class="[filter === 'all' ? 'uk-active' : '']"><a href="javascript:;" @click="filter = 'all'">All</a></li>
-            <li v-bind:class="[filter === 'active' ? 'uk-active':'']"><a href="javascript:;" @click="filter = 'active'">Active</a></li>
-            <li v-bind:class="[filter === 'completed' ? 'uk-active':'']"><a href="javascript:;" @click="filter = 'completed'">Completed</a></li>
+            <li v-bind:class="[filter === 'all' ? 'uk-active' : '']"><a href="javascript:;" @click="changeFilter('all')">All</a></li>
+            <li v-bind:class="[filter === 'active' ? 'uk-active':'']"><a href="javascript:;" @click="changeFilter('active')">Active</a></li>
+            <li v-bind:class="[filter === 'completed' ? 'uk-active':'']"><a href="javascript:;" @click="changeFilter('completed')">Completed</a></li>
             <li><a href="javascript:;" @click="clearCompleted">Clear Completed</a></li>
         </ul>
     </div>
-    <hr>
+    <h6 class="uk-heading-line uk-text-center"><span>Lists</span></h6>
     <div class="uk-flex uk-flex-center">
         <div class="uk-width-medium">
             <ul class="uk-list uk-list-divider">
@@ -78,7 +79,7 @@
     </ul>
 
     <h6 class="uk-heading-line uk-text-center"><span>Type2 Pagination</span></h6>
-    <div class="uk-flex uk-flex-center">
+    <div class="uk-flex uk-flex-center" v-if="count !== 0">
         <ul class="uk-pagination">
             <li class="uk-margin-auto-right"><a href="javascript:;" v-bind:class="page === 1 ? 'uk-disabled' : ''" @click="loadPage(page-1)"><span uk-pagination-previous class="uk-margin-small-right"></span> Previous</a></li>
             <li class="uk-margin-auto-left"><a href="javascript:;" v-bind:class="page === Math.ceil(count/limit) ? 'uk-disabled' : ''" @click="loadPage(page+1)">Next <span uk-pagination-next class="uk-margin-small-left"></span></a></li>

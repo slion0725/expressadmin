@@ -4,7 +4,7 @@ $(function() {
         content: null,
         rows: {},
         page: 1,
-        limit: 3,
+        limit: 5,
         count: 0,
         filter: 'all',
         offset: function() {
@@ -21,35 +21,41 @@ $(function() {
         methods: {
             submitBtn: function() {
                 $.post('todolist', {
-                    content: todolistData.content
+                    content: this.content
                 }, function(rs) {
                     if (rs.status === 'success') {
-                        todolist.content = null
-                        todolist.loadPage(1)
+                        this.content = null
+                        this.loadPage(1)
                     }
-                }, 'json')
+                }.bind(this), 'json')
             },
             getTodolist: function() {
                 $.get('todolist/list', {
-                    limit: todolistData.limit,
-                    offset: todolistData.offset()
-                }, function(rs) {
+                    filter: this.filter,
+                    limit: this.limit,
+                    offset: this.offset()
+                }).done(function(rs) {
                     if (rs.status === 'success') {
-                        todolistData.rows = rs.data.todolists.rows
-                        todolistData.count = rs.data.todolists.count
+                        this.rows = rs.data.todolists.rows
+                        this.count = rs.data.todolists.count
                     }
-                })
+                }.bind(this), 'json')
             },
             loadPage: function(page) {
                 this.page = page
                 this.getTodolist()
             },
             clearCompleted: function() {
-                UIkit.notification('Cleared', {status: 'success'});
+                UIkit.notification('Cleared', {status: 'success'})
             },
             checkCompleted: function(id, event) {
-                var obj = _.find(this.rows, {'id': id});
-                obj.completed = !obj.completed;  
+                var obj = _.find(this.rows, {'id': id})
+                obj.completed = !obj.completed
+                // $.post('todolist/list', {id: id}).done(function(rs) {}.bind(this), 'json')
+            },
+            changeFilter: function(filter) {
+                this.filter = filter
+                this.loadPage(this.page)
             }
         }
     })
