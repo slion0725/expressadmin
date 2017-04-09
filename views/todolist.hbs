@@ -11,6 +11,9 @@
     .uk-icon svg:first-child {
         display: none;
     }
+    .completedLine {
+        text-decoration: line-through;
+    }
 </style>
 <div class="uk-container" id="vue-app">
     <legend class="uk-legend uk-text-center">Todo List</legend>
@@ -36,8 +39,8 @@
     <div class="uk-flex uk-flex-center">
         <div class="uk-width-medium">
             <ul class="uk-list uk-list-divider">
-                <li v-cloak v-for="item in rows">
-                    <input class="uk-checkbox" type="checkbox">
+                <li v-cloak v-for="item in rows" v-bind:key="item.id" v-bind:class="[item.completed === true ? 'completedLine' : '']">
+                    <input class="uk-checkbox" type="checkbox" @click="checkCompleted(item.id,$event)">
                     <span v-text="item.id"></span>
                     <span v-text="item.content"></span>
                     <div class="uk-float-right">

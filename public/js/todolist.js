@@ -27,7 +27,7 @@ $(function() {
                         todolist.content = null
                         todolist.loadPage(1)
                     }
-                },'json')
+                }, 'json')
             },
             getTodolist: function() {
                 $.get('todolist/list', {
@@ -44,8 +44,12 @@ $(function() {
                 this.page = page
                 this.getTodolist()
             },
-            clearCompleted: function(){
-              UIkit.notification('Cleared', {status:'success'});
+            clearCompleted: function() {
+                UIkit.notification('Cleared', {status: 'success'});
+            },
+            checkCompleted: function(id, event) {
+                var obj = _.find(this.rows, {'id': id});
+                obj.completed = !obj.completed;  
             }
         }
     })
