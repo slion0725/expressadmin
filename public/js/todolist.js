@@ -51,7 +51,10 @@ $(function() {
             checkCompleted: function(id, event) {
                 var obj = _.find(this.rows, {'id': id})
                 obj.completed = !obj.completed
-                // $.post('todolist/list', {id: id}).done(function(rs) {}.bind(this), 'json')
+                $.ajax({method:'PUT',url:'todolist/list/' + id, data:{completed: obj.completed}})
+                .done(function(rs) {
+                  console.log(rs);
+                }.bind(this), 'json')
             },
             changeFilter: function(filter) {
                 this.filter = filter

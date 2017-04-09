@@ -78,8 +78,10 @@ module.exports = {
         });
     },
     store: function(req, res) {
+      console.log('put');
         TodolistModel.update({
-            content: req.body.content
+            // content: req.body.content,
+            completed: req.body.completed,
         }, {
             where: {
                 id: parseInt(req.params.id)
