@@ -64,7 +64,6 @@ $(function() {
                         completed: !obj.completed
                     })
                     .then(function(response) {
-                        console.log(response);
                         if (response.status === 200 && response.data.status === 'success') {
                             obj.completed = !obj.completed
                         }
