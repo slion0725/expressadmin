@@ -18,6 +18,7 @@ gulp.task('js_plugins', function() {
         // './bower_components/vue/dist/vue.min.js',
         './bower_components/vue/dist/vue.js',
         './bower_components/holderjs/holder.min.js',
+        './bower_components/axios/dist/axios.min.js',
       ]
     )
     .pipe(concat('plugins.js'))
