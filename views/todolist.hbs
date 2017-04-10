@@ -2,7 +2,6 @@
     [v-cloak] {
         display: none;
     }
-
     /*[uk-close] svg:first-child,
     [uk-pagination-previous] svg:first-child,
     [uk-pagination-next] svg:first-child {
@@ -12,6 +11,7 @@
     .uk-icon svg:first-child {
         display: none;
     }
+
     .completedLine {
         text-decoration: line-through;
     }
@@ -23,25 +23,25 @@
         <form v-on:submit.prevent>
             <div class="uk-margin">
                 <input class="uk-input uk-form-width-medium" type="text" placeholder="Content" v-model.trim="content">
-                <button type="button" class="uk-button uk-button-default" @click="submitBtn">Submit</button>
+                <button type="button" class="uk-button uk-button-default" v-on:click="submitBtn">Submit</button>
             </div>
         </form>
     </div>
     <!-- <hr> -->
     <div class="uk-flex uk-flex-center">
         <ul class="uk-subnav uk-subnav-divider" uk-margin>
-            <li v-bind:class="[filter === 'all' ? 'uk-active' : '']"><a href="javascript:;" @click="changeFilter('all')">All</a></li>
-            <li v-bind:class="[filter === 'active' ? 'uk-active':'']"><a href="javascript:;" @click="changeFilter('active')">Active</a></li>
-            <li v-bind:class="[filter === 'completed' ? 'uk-active':'']"><a href="javascript:;" @click="changeFilter('completed')">Completed</a></li>
-            <li><a href="javascript:;" @click="clearCompleted">Clear Completed</a></li>
+            <li v-bind:class="[filter === 'all' ? 'uk-active' : '']"><a href="javascript:;" v-on:click="changeFilter('all')">All</a></li>
+            <li v-bind:class="[filter === 'active' ? 'uk-active':'']"><a href="javascript:;" v-on:click="changeFilter('active')">Active</a></li>
+            <li v-bind:class="[filter === 'completed' ? 'uk-active':'']"><a href="javascript:;" v-on:click="changeFilter('completed')">Completed</a></li>
+            <li><a href="javascript:;" v-on:click="clearCompleted">Clear Completed</a></li>
         </ul>
     </div>
     <h6 class="uk-heading-line uk-text-center"><span>Lists</span></h6>
     <div class="uk-flex uk-flex-center">
         <div class="uk-width-medium">
             <ul class="uk-list uk-list-divider">
-                <li v-cloak v-for="item in rows" v-bind:key="item.id" v-bind:class="[item.completed === true ? 'completedLine' : '']">
-                    <input class="uk-checkbox" type="checkbox" @click="checkCompleted(item.id,$event)">
+                <li v-cloak v-for="item in rows" v-bind:key="item.id" v-bind:class="[item.completed == true ? 'completedLine' : '']">
+                    <input class="uk-checkbox" type="checkbox" v-on:click="checkCompleted(item.id,$event)" v-bind:checked="item.completed == true">
                     <span v-text="item.id"></span>
                     <span v-text="item.content"></span>
                     <div class="uk-float-right">
@@ -54,63 +54,63 @@
     <h6 class="uk-heading-line uk-text-center"><span>Type1 Pagination</span></h6>
     <ul class="uk-pagination uk-flex-center" uk-margin v-if="count !== 0">
         <!-- left-arraw -->
-        <li v-if="page !== 1"><a href="javascript:;" @click="loadPage(page-1)"><span uk-pagination-previous></span></a></li>
+        <li v-if="page !== 1"><a href="javascript:;" v-on:click="loadPage(page-1)"><span uk-pagination-previous></span></a></li>
         <!-- fist page -->
-        <li v-if="page !== 1"><a href="javascript:;" @click="loadPage(1)">1</a></li>
+        <li v-if="page !== 1"><a href="javascript:;" v-on:click="loadPage(1)">1</a></li>
         <!-- ...page -->
         <li v-if="page-2 > 1" class="uk-disabled"><span>...</span></li>
 
         <li v-if="page-1 > 1">
-            <a href="javascript:;" v-text="page-1" @click="loadPage(page-1)"></a>
+            <a href="javascript:;" v-text="page-1" v-on:click="loadPage(page-1)"></a>
         </li>
         <li class="uk-active" v-text="page"></li>
         <li v-if="page+1 < Math.ceil(count/limit)">
-            <a href="javascript:;" v-text="page+1" @click="loadPage(page+1)"></a>
+            <a href="javascript:;" v-text="page+1" v-on:click="loadPage(page+1)"></a>
         </li>
 
         <!-- ...page -->
         <li v-if="page+2 < Math.ceil(count/limit)" class="uk-disabled"><span>...</span></li>
         <!-- last page -->
         <li v-if="page !== Math.ceil(count/limit)">
-            <a href="javascript:;" v-text="Math.ceil(count/limit)" @click="loadPage(Math.ceil(count/limit))"></a>
+            <a href="javascript:;" v-text="Math.ceil(count/limit)" v-on:click="loadPage(Math.ceil(count/limit))"></a>
         </li>
         <!-- right-arraw -->
-        <li v-if="page !== Math.ceil(count/limit)"><a href="javascript:;" @click="loadPage(page+1)"><span uk-pagination-next></span></a></li>
+        <li v-if="page !== Math.ceil(count/limit)"><a href="javascript:;" v-on:click="loadPage(page+1)"><span uk-pagination-next></span></a></li>
     </ul>
 
     <h6 class="uk-heading-line uk-text-center"><span>Type2 Pagination</span></h6>
     <div class="uk-flex uk-flex-center" v-if="count !== 0">
         <ul class="uk-pagination">
-            <li class="uk-margin-auto-right"><a href="javascript:;" v-bind:class="page === 1 ? 'uk-disabled' : ''" @click="loadPage(page-1)"><span uk-pagination-previous class="uk-margin-small-right"></span> Previous</a></li>
-            <li class="uk-margin-auto-left"><a href="javascript:;" v-bind:class="page === Math.ceil(count/limit) ? 'uk-disabled' : ''" @click="loadPage(page+1)">Next <span uk-pagination-next class="uk-margin-small-left"></span></a></li>
+            <li class="uk-margin-auto-right"><a href="javascript:;" v-bind:class="page === 1 ? 'uk-disabled' : ''" v-on:click="loadPage(page-1)"><span uk-pagination-previous class="uk-margin-small-right"></span> Previous</a></li>
+            <li class="uk-margin-auto-left"><a href="javascript:;" v-bind:class="page === Math.ceil(count/limit) ? 'uk-disabled' : ''" v-on:click="loadPage(page+1)">Next <span uk-pagination-next class="uk-margin-small-left"></span></a></li>
         </ul>
     </div>
 
     <h6 class="uk-heading-line uk-text-center"><span>Type3 Pagination</span></h6>
     <ul class="uk-pagination" uk-margin v-if="count !== 0">
         <!-- left-arraw -->
-        <li v-if="page !== 1" class="uk-margin-auto-right"><a href="javascript:;" @click="loadPage(page-1)"><span uk-pagination-previous></span></a></li>
+        <li v-if="page !== 1" class="uk-margin-auto-right"><a href="javascript:;" v-on:click="loadPage(page-1)"><span uk-pagination-previous></span></a></li>
         <!-- fist page -->
-        <li v-if="page !== 1"><a href="javascript:;" @click="loadPage(1)">1</a></li>
+        <li v-if="page !== 1"><a href="javascript:;" v-on:click="loadPage(1)">1</a></li>
         <!-- ...page -->
         <li v-if="page-2 > 1" class="uk-disabled"><span>...</span></li>
 
         <li v-if="page-1 > 1">
-            <a href="javascript:;" v-text="page-1" @click="loadPage(page-1)"></a>
+            <a href="javascript:;" v-text="page-1" v-on:click="loadPage(page-1)"></a>
         </li>
         <li class="uk-active" v-bind:class="[page === 1 ? 'uk-margin-auto-left' : '',page === Math.ceil(count/limit) ? 'uk-margin-auto-right' : '']" v-text="page"></li>
         <li v-if="page+1 < Math.ceil(count/limit)">
-            <a href="javascript:;" v-text="page+1" @click="loadPage(page+1)"></a>
+            <a href="javascript:;" v-text="page+1" v-on:click="loadPage(page+1)"></a>
         </li>
 
         <!-- ...page -->
         <li v-if="page+2 < Math.ceil(count/limit)" class="uk-disabled"><span>...</span></li>
         <!-- last page -->
         <li v-if="page !== Math.ceil(count/limit)">
-            <a href="javascript:;" v-text="Math.ceil(count/limit)" @click="loadPage(Math.ceil(count/limit))"></a>
+            <a href="javascript:;" v-text="Math.ceil(count/limit)" v-on:click="loadPage(Math.ceil(count/limit))"></a>
         </li>
         <!-- right-arraw -->
-        <li v-if="page !== Math.ceil(count/limit)" class="uk-margin-auto-left"><a href="javascript:;" @click="loadPage(page+1)"><span uk-pagination-next></span></a></li>
+        <li v-if="page !== Math.ceil(count/limit)" class="uk-margin-auto-left"><a href="javascript:;" v-on:click="loadPage(page+1)"><span uk-pagination-next></span></a></li>
     </ul>
 </div>
 <!-- uk-container -->

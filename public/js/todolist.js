@@ -30,31 +30,48 @@ $(function() {
                 }.bind(this), 'json')
             },
             getTodolist: function() {
-                $.get('todolist/list', {
-                    filter: this.filter,
-                    limit: this.limit,
-                    offset: this.offset()
-                }).done(function(rs) {
-                    if (rs.status === 'success') {
-                        this.rows = rs.data.todolists.rows
-                        this.count = rs.data.todolists.count
-                    }
-                }.bind(this), 'json')
+                axios.get('todolist/list', {
+                        params: {
+                            filter: this.filter,
+                            limit: this.limit,
+                            offset: this.offset(),
+                        }
+                    })
+                    .then(function(response) {
+                        if (response.status === 200 && response.data.status === 'success') {
+                            this.rows = response.data.data.todolists.rows
+                            this.count = response.data.data.todolists.count
+                        }
+                    }.bind(this))
+                    .catch(function(error) {
+                        console.log(error);
+                    });
             },
             loadPage: function(page) {
                 this.page = page
                 this.getTodolist()
             },
             clearCompleted: function() {
-                UIkit.notification('Cleared', {status: 'success'})
+                UIkit.notification('Cleared', {
+                    status: 'success'
+                })
             },
             checkCompleted: function(id, event) {
-                var obj = _.find(this.rows, {'id': id})
-                obj.completed = !obj.completed
-                $.ajax({method:'PUT',url:'todolist/list/' + id, data:{completed: obj.completed}})
-                .done(function(rs) {
-                  console.log(rs);
-                }.bind(this), 'json')
+                var obj = _.find(this.rows, {
+                    'id': id
+                })
+                axios.put('todolist/' + id, {
+                        completed: !obj.completed
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                        if (response.status === 200 && response.data.status === 'success') {
+                            obj.completed = !obj.completed
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
             },
             changeFilter: function(filter) {
                 this.filter = filter
