@@ -1,20 +1,20 @@
+/*global $, _, axios, UIkit, Vue*/
+/*eslint no-console: "off"*/
+
 $(function() {
-
-    var todolistData = {
-        content: null,
-        rows: {},
-        page: 1,
-        limit: 5,
-        count: 0,
-        filter: 'all',
-        offset: function() {
-            return this.limit * (this.page - 1)
-        }
-    }
-
-    var todolist = new Vue({
+    new Vue({
         el: '#vue-app',
-        data: todolistData,
+        data: {
+            content: null,
+            rows: {},
+            page: 1,
+            limit: 5,
+            count: 0,
+            filter: 'all',
+            offset: function() {
+                return this.limit * (this.page - 1)
+            }
+        },
         mounted: function() {
             this.getTodolist()
         },
@@ -42,8 +42,8 @@ $(function() {
                         this.count = response.data.data.todolists.count
                     }
                 }.bind(this)).catch(function(error) {
-                    console.log(error);
-                });
+                    console.log(error)
+                })
             },
             loadPage: function(page) {
                 this.page = page
@@ -52,7 +52,7 @@ $(function() {
             clearCompleted: function() {
                 UIkit.notification('Cleared', {status: 'success'})
             },
-            checkCompleted: function(id, event) {
+            checkCompleted: function(id) {
                 var obj = _.find(this.rows, {'id': id})
                 axios.put('todolist/' + id, {
                     completed: !obj.completed
@@ -61,8 +61,8 @@ $(function() {
                         obj.completed = !obj.completed
                     }
                 }).catch(function(error) {
-                    console.log(error);
-                });
+                    console.log(error)
+                })
             },
             changeFilter: function(filter) {
                 this.filter = filter
