@@ -98,7 +98,7 @@ module.exports = {
                 id: parseInt(req.params.id)
             }
         }).then(function(todolist) {
-            res.status(204).json({status: 'success'});
+            res.status(200).json({status: 'success'});
         }).catch(function(error) {
             res.status(422).json({status: error});
         });

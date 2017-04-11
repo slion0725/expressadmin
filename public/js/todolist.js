@@ -1,7 +1,7 @@
 /*global $, _, axios, UIkit, Vue*/
 /*eslint no-console: "off"*/
 
-window.onload=function(){
+window.onload = function() {
     new Vue({
         el: '#vue-app',
         data: {
@@ -49,8 +49,20 @@ window.onload=function(){
                 this.page = page
                 this.getTodolist()
             },
-            clearCompleted: function() {
-                UIkit.notification('Cleared', {status: 'success'})
+            deleteTodo: function(id) {
+                UIkit.modal.confirm('Delete?').then(function() {
+                    axios.delete('todolist/' + id).then(function(response) {
+                        console.log(response)
+                        if (response.status === 200 && response.data.status === 'success') {
+                            UIkit.notification('Cleared', {status: 'success'})
+                            this.loadPage(this.page)
+                        }
+                    }.bind(this)).catch(function(error) {
+                        console.log(error)
+                    })
+                }.bind(this), function() {
+                    console.log('Rejected')
+                })
             },
             checkCompleted: function(id) {
                 var obj = _.find(this.rows, {'id': id})

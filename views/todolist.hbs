@@ -29,7 +29,6 @@
             <li v-bind:class="[filter === 'all' ? 'uk-active' : '']"><a href="javascript:;" v-on:click="changeFilter('all')">All</a></li>
             <li v-bind:class="[filter === 'active' ? 'uk-active':'']"><a href="javascript:;" v-on:click="changeFilter('active')">Active</a></li>
             <li v-bind:class="[filter === 'completed' ? 'uk-active':'']"><a href="javascript:;" v-on:click="changeFilter('completed')">Completed</a></li>
-            <li><a href="javascript:;" v-on:click="clearCompleted">Clear Completed</a></li>
         </ul>
     </div>
     <h6 class="uk-heading-line uk-text-center"><span>Lists</span></h6>
@@ -41,7 +40,7 @@
                     <span v-text="item.id"></span>
                     <span v-text="item.content"></span>
                     <div class="uk-float-right">
-                        <button type="button" uk-close></button>
+                        <button type="button" uk-close v-on:click="deleteTodo(item.id)"></button>
                     </div>
                 </li>
             </ul>
