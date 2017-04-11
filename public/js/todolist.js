@@ -52,7 +52,6 @@ window.onload = function() {
             deleteTodo: function(id) {
                 UIkit.modal.confirm('Delete?').then(function() {
                     axios.delete('todolist/' + id).then(function(response) {
-                        console.log(response)
                         if (response.status === 200 && response.data.status === 'success') {
                             UIkit.notification('Cleared', {status: 'success'})
                             this.loadPage(this.page)
