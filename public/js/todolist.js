@@ -31,46 +31,38 @@ $(function() {
             },
             getTodolist: function() {
                 axios.get('todolist/list', {
-                        params: {
-                            filter: this.filter,
-                            limit: this.limit,
-                            offset: this.offset(),
-                        }
-                    })
-                    .then(function(response) {
-                        if (response.status === 200 && response.data.status === 'success') {
-                            this.rows = response.data.data.todolists.rows
-                            this.count = response.data.data.todolists.count
-                        }
-                    }.bind(this))
-                    .catch(function(error) {
-                        console.log(error);
-                    });
+                    params: {
+                        filter: this.filter,
+                        limit: this.limit,
+                        offset: this.offset()
+                    }
+                }).then(function(response) {
+                    if (response.status === 200 && response.data.status === 'success') {
+                        this.rows = response.data.data.todolists.rows
+                        this.count = response.data.data.todolists.count
+                    }
+                }.bind(this)).catch(function(error) {
+                    console.log(error);
+                });
             },
             loadPage: function(page) {
                 this.page = page
                 this.getTodolist()
             },
             clearCompleted: function() {
-                UIkit.notification('Cleared', {
-                    status: 'success'
-                })
+                UIkit.notification('Cleared', {status: 'success'})
             },
             checkCompleted: function(id, event) {
-                var obj = _.find(this.rows, {
-                    'id': id
-                })
+                var obj = _.find(this.rows, {'id': id})
                 axios.put('todolist/' + id, {
-                        completed: !obj.completed
-                    })
-                    .then(function(response) {
-                        if (response.status === 200 && response.data.status === 'success') {
-                            obj.completed = !obj.completed
-                        }
-                    })
-                    .catch(function(error) {
-                        console.log(error);
-                    });
+                    completed: !obj.completed
+                }).then(function(response) {
+                    if (response.status === 200 && response.data.status === 'success') {
+                        obj.completed = !obj.completed
+                    }
+                }).catch(function(error) {
+                    console.log(error);
+                });
             },
             changeFilter: function(filter) {
                 this.filter = filter
