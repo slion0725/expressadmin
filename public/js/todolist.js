@@ -1,7 +1,7 @@
 /*global $, _, axios, UIkit, Vue*/
 /*eslint no-console: "off"*/
 
-$(function() {
+window.onload=function(){
     new Vue({
         el: '#vue-app',
         data: {
@@ -70,4 +70,4 @@ $(function() {
             }
         }
     })
-})
+}
