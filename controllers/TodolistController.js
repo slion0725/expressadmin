@@ -20,7 +20,7 @@ module.exports = {
         console.log(req.baseUrl)
         res.render('todolist', {
             title: 'todolist',
-            importjs: 'js/todolist.js'
+            importjs: ['js/todolist.js']
         })
     },
     add: function(req, res) {
