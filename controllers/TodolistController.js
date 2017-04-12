@@ -17,9 +17,7 @@ module.exports = {
         router.delete('/:id', this.destroy)
     },
     index: function(req, res) {
-        // console.log(req.baseUrl);
-        // console.log(req.body);
-        // console.log(req.params);
+        console.log(req.baseUrl)
         res.render('todolist', {
             title: 'todolist',
             importjs: 'js/todolist.js'
@@ -37,6 +35,7 @@ module.exports = {
 
         req.checkQuery('limit').notEmpty().isInt()
         req.checkQuery('offset').notEmpty().isInt()
+        req.checkQuery('filter').notEmpty()
 
         var errors = req.validationErrors()
         if (errors) {
@@ -52,8 +51,8 @@ module.exports = {
                 'id', 'content', 'completed', 'createdAt'
             ],
             order: 'id DESC',
-            limit: (req.query.limit),
-            offset: (req.query.offset),
+            limit: req.query.limit,
+            offset: req.query.offset,
             raw: true
         }
 
@@ -94,6 +93,15 @@ module.exports = {
         console.log(res)
     },
     create: function(req, res) {
+
+        req.checkBody('content').notEmpty().isLength({min: 1, max: 255})
+
+        var errors = req.validationErrors()
+        if (errors) {
+            res.status(422).json(errors)
+            return
+        }
+
         TodolistModel.create({content: req.body.content}).then(function(todolist) {
             console.log(todolist)
             res.status(200).json({status: 'success'})
@@ -102,11 +110,23 @@ module.exports = {
         })
     },
     store: function(req, res) {
+
+        req.checkParams('id').isInt()
+        req.checkBody('completed').isBoolean()
+
+        var errors = req.validationErrors()
+        if (errors) {
+            res.status(422).json(errors)
+            return
+        }
+
+        req.sanitizeParams('id').toInt()
+
         TodolistModel.update({
             completed: req.body.completed
         }, {
             where: {
-                id: parseInt(req.params.id)
+                id: req.params.id
             }
         }).then(function(todolist) {
             console.log(todolist)
@@ -116,12 +136,24 @@ module.exports = {
         })
     },
     destroy: function(req, res) {
+
+        req.checkParams('id').isInt()
+
+        var errors = req.validationErrors()
+        if (errors) {
+            console.log(errors)
+            res.status(422).json(errors)
+            return
+        }
+
+        req.sanitizeParams('id').toInt()
+
         TodolistModel.destroy({
             where: {
-                id: parseInt(req.params.id)
+                id: req.params.id
             }
         }).then(function(todolist) {
-            console.lgo(todolist)
+            console.log(todolist)
             res.status(200).json({status: 'success'})
         }).catch(function(error) {
             res.status(422).json({status: error})
