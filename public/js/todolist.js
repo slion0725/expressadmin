@@ -31,19 +31,6 @@ window.onload = function() {
             this.getTodolist()
         },
         methods: {
-            submitBtn: function() {
-                axios.post('todolist',{
-                    content: this.content,
-                }).then(function(response) {
-                    if (response.status === 200 && response.data.status === 'success') {
-                        this.syncCsrfToken = response.data.csrfToken
-                        this.content = null
-                        this.loadPage(1)
-                    }
-                }.bind(this)).catch(function(error) {
-                    console.log(error)
-                })
-            },
             getTodolist: function() {
                 axios.get('todolist/list', {
                     params: {
@@ -61,9 +48,31 @@ window.onload = function() {
                     console.log(error)
                 })
             },
-            loadPage: function(page) {
-                this.page = page
-                this.getTodolist()
+            submitBtn: function() {
+                axios.post('todolist',{
+                    content: this.content,
+                }).then(function(response) {
+                    if (response.status === 200 && response.data.status === 'success') {
+                        this.syncCsrfToken = response.data.csrfToken
+                        this.content = null
+                        this.loadPage(1)
+                    }
+                }.bind(this)).catch(function(error) {
+                    console.log(error)
+                })
+            },
+            checkCompleted: function(id) {
+                var obj = _.find(this.rows, {'id': id})
+                axios.put('todolist/' + id, {
+                    completed: !obj.completed
+                }).then(function(response) {
+                    if (response.status === 200 && response.data.status === 'success') {
+                        this.syncCsrfToken = response.data.csrfToken
+                        obj.completed = !obj.completed
+                    }
+                }.bind(this)).catch(function(error) {
+                    console.log(error)
+                })
             },
             deleteTodo: function(id) {
                 UIkit.modal.confirm('Delete?').then(function() {
@@ -80,23 +89,14 @@ window.onload = function() {
                     console.log('Rejected')
                 })
             },
-            checkCompleted: function(id) {
-                var obj = _.find(this.rows, {'id': id})
-                axios.put('todolist/' + id, {
-                    completed: !obj.completed
-                }).then(function(response) {
-                    if (response.status === 200 && response.data.status === 'success') {
-                        this.syncCsrfToken = response.data.csrfToken
-                        obj.completed = !obj.completed
-                    }
-                }.bind(this)).catch(function(error) {
-                    console.log(error)
-                })
-            },
             changeFilter: function(filter) {
                 this.filter = filter
                 this.loadPage(this.page)
-            }
+            },
+            loadPage: function(page) {
+                this.page = page
+                this.getTodolist()
+            },
         }
     })
 }

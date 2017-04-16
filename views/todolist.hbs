@@ -77,6 +77,9 @@
     <div class="uk-flex uk-flex-center" v-show="count !== 0">
         <ul class="uk-pagination">
             <li class="uk-margin-auto-right"><a href="javascript:;" v-bind:class="page === 1 ? 'uk-disabled' : ''" v-on:click="loadPage(page-1)"><span uk-pagination-previous class="uk-margin-small-right"></span> Previous</a></li>
+            <li>
+                <span v-text="page + ' / ' + Math.ceil(count/limit)"></span>
+            </li>
             <li class="uk-margin-auto-left"><a href="javascript:;" v-bind:class="page === Math.ceil(count/limit) ? 'uk-disabled' : ''" v-on:click="loadPage(page+1)">Next <span uk-pagination-next class="uk-margin-small-left"></span></a></li>
         </ul>
     </div>
