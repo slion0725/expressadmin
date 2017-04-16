@@ -1,4 +1,4 @@
-/*global $, _, axios, UIkit, Vue*/
+/*global _, axios, UIkit, Vue*/
 /*eslint no-console: "off"*/
 
 window.onload = function() {
@@ -13,6 +13,18 @@ window.onload = function() {
             filter: 'all',
             offset: function() {
                 return this.limit * (this.page - 1)
+            },
+            csrfToken: ''
+        },
+        computed: {
+            syncCsrfToken: {
+                get: function(){
+
+                },
+                set: function(newToken){
+                    this.csrfToken = newToken
+                    axios.defaults.headers.common['X-CSRF-TOKEN'] = newToken
+                }
             }
         },
         mounted: function() {
@@ -20,14 +32,17 @@ window.onload = function() {
         },
         methods: {
             submitBtn: function() {
-                $.post('todolist', {
-                    content: this.content
-                }, function(rs) {
-                    if (rs.status === 'success') {
+                axios.post('todolist',{
+                    content: this.content,
+                }).then(function(response) {
+                    if (response.status === 200 && response.data.status === 'success') {
+                        this.syncCsrfToken = response.data.csrfToken
                         this.content = null
                         this.loadPage(1)
                     }
-                }.bind(this), 'json')
+                }.bind(this)).catch(function(error) {
+                    console.log(error)
+                })
             },
             getTodolist: function() {
                 axios.get('todolist/list', {
@@ -38,6 +53,7 @@ window.onload = function() {
                     }
                 }).then(function(response) {
                     if (response.status === 200 && response.data.status === 'success') {
+                        this.syncCsrfToken = response.data.csrfToken
                         this.rows = response.data.data.todolists.rows
                         this.count = response.data.data.todolists.count
                     }
@@ -53,6 +69,7 @@ window.onload = function() {
                 UIkit.modal.confirm('Delete?').then(function() {
                     axios.delete('todolist/' + id).then(function(response) {
                         if (response.status === 200 && response.data.status === 'success') {
+                            this.syncCsrfToken = response.data.csrfToken
                             UIkit.notification('Cleared', {status: 'success'})
                             this.loadPage(this.page)
                         }
@@ -69,9 +86,10 @@ window.onload = function() {
                     completed: !obj.completed
                 }).then(function(response) {
                     if (response.status === 200 && response.data.status === 'success') {
+                        this.syncCsrfToken = response.data.csrfToken
                         obj.completed = !obj.completed
                     }
-                }).catch(function(error) {
+                }.bind(this)).catch(function(error) {
                     console.log(error)
                 })
             },

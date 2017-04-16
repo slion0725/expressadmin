@@ -84,7 +84,8 @@ module.exports = {
                 status: 'success',
                 data: {
                     todolists: todolists
-                }
+                },
+                csrfToken: req.csrfToken()
             })
         })
     },
@@ -104,7 +105,10 @@ module.exports = {
 
         TodolistModel.create({content: req.body.content}).then(function(todolist) {
             console.log(todolist)
-            res.status(200).json({status: 'success'})
+            res.status(200).json({
+                status: 'success',
+                csrfToken: req.csrfToken()
+            })
         }).catch(function(error) {
             res.status(422).json({status: error})
         })
@@ -130,7 +134,10 @@ module.exports = {
             }
         }).then(function(todolist) {
             console.log(todolist)
-            res.status(200).json({status: 'success'})
+            res.status(200).json({
+                status: 'success',
+                csrfToken: req.csrfToken()
+            })
         }).catch(function(error) {
             res.status(422).json({status: error})
         })
@@ -154,7 +161,10 @@ module.exports = {
             }
         }).then(function(todolist) {
             console.log(todolist)
-            res.status(200).json({status: 'success'})
+            res.status(200).json({
+                status: 'success',
+                csrfToken: req.csrfToken()
+            })
         }).catch(function(error) {
             res.status(422).json({status: error})
         })

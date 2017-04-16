@@ -1,69 +1,79 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var expressValidator = require('express-validator');
-
-// FORM-DATA
-var multer = require('multer');
-var upload = multer();
+var express = require('express')
+var path = require('path')
+var favicon = require('serve-favicon')
+var logger = require('morgan')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var expressValidator = require('express-validator')
 
 // SESSIOM
-var expressSession = require('express-session');
+var expressSession = require('express-session')
 
 // XSS
-var helmet = require('helmet');
+var helmet = require('helmet')
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var todolist = require('./routes/todolist');
+// CSRF
+var csurf = require('csurf')
 
-var app = express();
+// FORM-DATA
+var multer = require('multer')
+var upload = multer()
+
+// PAGE
+var index = require('./routes/index')
+var users = require('./routes/users')
+var todolist = require('./routes/todolist')
+
+
+
+var app = express()
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hbs')
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressValidator());
-// FORM-DATA
-app.use(upload.array());
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(cookieParser())
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(expressValidator())
 
 // SESSION
-app.use(expressSession({secret: 'mySecret'}));
+app.use(expressSession({secret: 'mySecret'}))
 
 // XSS
-app.use(helmet());
+app.use(helmet())
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/todolist', todolist);
+// CSRF
+app.use(csurf({ cookie: true }))
+
+// FORM-DATA
+app.use(upload.array())
+
+// ROUTER
+app.use('/', index)
+app.use('/users', users)
+app.use('/todolist', todolist)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
+    var err = new Error('Not Found')
+    err.status = 404
+    next(err)
+})
 
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.message = err.message
+    res.locals.error = req.app.get('env') === 'development' ? err : {}
 
     // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-});
+    res.status(err.status || 500)
+    res.render('error')
+})
 
-module.exports = app;
+module.exports = app
