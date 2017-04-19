@@ -20,6 +20,7 @@ module.exports = {
         console.log(req.baseUrl)
         res.render('todolist', {
             title: 'todolist',
+            importcss: ['css/todolist.css'],
             importjs: ['js/todolist.js']
         })
     },

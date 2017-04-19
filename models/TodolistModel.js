@@ -1,5 +1,5 @@
-var db = require('../configs/DatabaseConfig.js');
-var Sequelize = require('sequelize');
+var db = require('../configs/DatabaseConfig.js')
+var Sequelize = require('sequelize')
 
 module.exports = db.define('todolist', {
     content: {
@@ -13,4 +13,4 @@ module.exports = db.define('todolist', {
     }
 }, {
     freezeTableName: true
-});
+})

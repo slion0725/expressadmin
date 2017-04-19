@@ -24,8 +24,6 @@ var index = require('./routes/index')
 var users = require('./routes/users')
 var todolist = require('./routes/todolist')
 
-
-
 var app = express()
 
 // view engine setup
@@ -42,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(expressValidator())
 
 // SESSION
-app.use(expressSession({secret: 'mySecret'}))
+app.use(expressSession({secret: 'mySecret', name: 'myName'}))
 
 // XSS
 app.use(helmet())

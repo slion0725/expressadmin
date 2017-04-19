@@ -11,6 +11,9 @@
     <link href="css/plugins.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
     <script src="js/plugins.js"></script>
+    {{#each importcss }}
+    <link href="{{this}}" rel="stylesheet">
+    {{/each}}
     {{#each importjs }}
     <script src="{{this}}"></script>
     {{/each}}

@@ -1,0 +1,15 @@
+[v-cloak] {
+  display: none;
+}
+
+.uk-icon svg {
+  display: none;
+}
+
+.uk-icon svg:first-child {
+  display: block;
+}
+
+.completedLine {
+  text-decoration: line-through;
+}
