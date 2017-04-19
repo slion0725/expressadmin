@@ -21,6 +21,7 @@ var upload = multer()
 
 // PAGE
 var index = require('./routes/index')
+var inner = require('./routes/inner')
 var users = require('./routes/users')
 var todolist = require('./routes/todolist')
 
@@ -53,6 +54,7 @@ app.use(upload.array())
 
 // ROUTER
 app.use('/', index)
+app.use('/inner', inner)
 app.use('/users', users)
 app.use('/todolist', todolist)
 
