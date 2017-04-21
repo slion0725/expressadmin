@@ -82,6 +82,11 @@ window.onload = function() {
                             UIkit.notification('Cleared', {
                                 status: 'success'
                             })
+
+                            if(Math.ceil((this.count - 1)/this.limit) < this.page){
+                                this.page = Math.ceil((this.count - 1)/this.limit)
+                            }
+
                             this.loadPage(this.page)
                         }
                     }.bind(this)).catch(function(error) {
@@ -93,7 +98,7 @@ window.onload = function() {
             },
             changeFilter: function(filter) {
                 this.filter = filter
-                this.loadPage(this.page)
+                this.loadPage(1)
             },
             loadPage: function(page) {
                 this.page = page
