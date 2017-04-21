@@ -83,8 +83,8 @@ window.onload = function() {
                                 status: 'success'
                             })
 
-                            if(Math.ceil((this.count - 1)/this.limit) < this.page){
-                                this.page = Math.ceil((this.count - 1)/this.limit)
+                            if (Math.ceil((this.count - 1) / this.limit) < this.page) {
+                                this.page = Math.ceil((this.count - 1) / this.limit)
                             }
 
                             this.loadPage(this.page)
