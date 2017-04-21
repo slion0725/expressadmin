@@ -12,9 +12,15 @@
     <!-- <hr> -->
     <div class="uk-flex uk-flex-center">
         <ul class="uk-subnav uk-subnav-divider" uk-margin>
-            <li v-bind:class="[filter === 'all' ? 'uk-active' : '']"><a href="javascript:;" v-on:click="changeFilter('all')">All</a></li>
-            <li v-bind:class="[filter === 'active' ? 'uk-active':'']"><a href="javascript:;" v-on:click="changeFilter('active')">Active</a></li>
-            <li v-bind:class="[filter === 'completed' ? 'uk-active':'']"><a href="javascript:;" v-on:click="changeFilter('completed')">Completed</a></li>
+            <li v-bind:class="[filter === 'all' ? 'uk-active' : '']">
+                <a href="javascript:;" v-on:click="changeFilter('all')">All</a>
+            </li>
+            <li v-bind:class="[filter === 'active' ? 'uk-active':'']">
+                <a href="javascript:;" v-on:click="changeFilter('active')">Active</a>
+            </li>
+            <li v-bind:class="[filter === 'completed' ? 'uk-active':'']">
+                <a href="javascript:;" v-on:click="changeFilter('completed')">Completed</a>
+            </li>
         </ul>
     </div>
     <h6 class="uk-heading-line uk-text-center"><span>Lists</span></h6>
@@ -35,49 +41,83 @@
     <h6 class="uk-heading-line uk-text-center"><span>Type1 Pagination</span></h6>
     <ul class="uk-pagination uk-flex-center" uk-margin v-show="count !== 0">
         <!-- left-arraw -->
-        <li v-show="page !== 1"><a href="javascript:;" v-on:click="loadPage(page-1)"><span uk-pagination-previous></span></a></li>
+        <li v-show="page !== 1">
+            <a href="javascript:;" v-on:click="loadPage(page-1)">
+                <span uk-pagination-previous></span>
+            </a>
+        </li>
         <!-- fist page -->
-        <li v-show="page !== 1"><a href="javascript:;" v-on:click="loadPage(1)">1</a></li>
+        <li v-show="page !== 1">
+            <a href="javascript:;" v-on:click="loadPage(1)">1</a>
+        </li>
         <!-- ...page -->
-        <li v-show="page-2 > 1" class="uk-disabled"><span>...</span></li>
+        <li v-show="page-2 > 1" class="uk-disabled">
+            <span>...</span>
+        </li>
 
+        <!-- previous -->
         <li v-show="page-1 > 1">
             <a href="javascript:;" v-text="page-1" v-on:click="loadPage(page-1)"></a>
         </li>
+
+        <!-- current -->
         <li class="uk-active" v-text="page"></li>
+
+        <!-- next -->
         <li v-show="page+1 < Math.ceil(count/limit)">
             <a href="javascript:;" v-text="page+1" v-on:click="loadPage(page+1)"></a>
         </li>
 
         <!-- ...page -->
-        <li v-show="page+2 < Math.ceil(count/limit)" class="uk-disabled"><span>...</span></li>
+        <li v-show="page+2 < Math.ceil(count/limit)" class="uk-disabled">
+            <span>...</span>
+        </li>
         <!-- last page -->
         <li v-show="page !== Math.ceil(count/limit)">
             <a href="javascript:;" v-text="Math.ceil(count/limit)" v-on:click="loadPage(Math.ceil(count/limit))"></a>
         </li>
         <!-- right-arraw -->
-        <li v-show="page !== Math.ceil(count/limit)"><a href="javascript:;" v-on:click="loadPage(page+1)"><span uk-pagination-next></span></a></li>
+        <li v-show="page !== Math.ceil(count/limit)">
+            <a href="javascript:;" v-on:click="loadPage(page+1)">
+                <span uk-pagination-next></span>
+            </a>
+        </li>
     </ul>
 
     <h6 class="uk-heading-line uk-text-center"><span>Type2 Pagination</span></h6>
     <div class="uk-flex uk-flex-center" v-show="count !== 0">
         <ul class="uk-pagination">
-            <li class="uk-margin-auto-right"><a href="javascript:;" v-bind:class="page === 1 ? 'uk-disabled' : ''" v-on:click="loadPage(page-1)"><span uk-pagination-previous class="uk-margin-small-right"></span> Previous</a></li>
+            <li class="uk-margin-auto-right">
+                <a href="javascript:;" v-bind:class="page === 1 ? 'uk-disabled' : ''" v-on:click="loadPage(page-1)">
+                    <span uk-pagination-previous class="uk-margin-small-right"></span> Previous</a>
+            </li>
             <li>
                 <span v-text="page + ' / ' + Math.ceil(count/limit)"></span>
             </li>
-            <li class="uk-margin-auto-left"><a href="javascript:;" v-bind:class="page === Math.ceil(count/limit) ? 'uk-disabled' : ''" v-on:click="loadPage(page+1)">Next <span uk-pagination-next class="uk-margin-small-left"></span></a></li>
+            <li class="uk-margin-auto-left">
+                <a href="javascript:;" v-bind:class="page === Math.ceil(count/limit) ? 'uk-disabled' : ''" v-on:click="loadPage(page+1)">Next
+          <span uk-pagination-next class="uk-margin-small-left"></span>
+        </a>
+            </li>
         </ul>
     </div>
 
     <h6 class="uk-heading-line uk-text-center"><span>Type3 Pagination</span></h6>
     <ul class="uk-pagination" uk-margin v-show="count !== 0">
         <!-- left-arraw -->
-        <li v-show="page !== 1" class="uk-margin-auto-right"><a href="javascript:;" v-on:click="loadPage(page-1)"><span uk-pagination-previous></span></a></li>
+        <li v-show="page !== 1" class="uk-margin-auto-right">
+            <a href="javascript:;" v-on:click="loadPage(page-1)">
+                <span uk-pagination-previous></span>
+            </a>
+        </li>
         <!-- fist page -->
-        <li v-show="page !== 1"><a href="javascript:;" v-on:click="loadPage(1)">1</a></li>
+        <li v-show="page !== 1">
+            <a href="javascript:;" v-on:click="loadPage(1)">1</a>
+        </li>
         <!-- ...page -->
-        <li v-show="page-2 > 1" class="uk-disabled"><span>...</span></li>
+        <li v-show="page-2 > 1" class="uk-disabled">
+            <span>...</span>
+        </li>
 
         <li v-show="page-1 > 1">
             <a href="javascript:;" v-text="page-1" v-on:click="loadPage(page-1)"></a>
@@ -88,13 +128,19 @@
         </li>
 
         <!-- ...page -->
-        <li v-show="page+2 < Math.ceil(count/limit)" class="uk-disabled"><span>...</span></li>
+        <li v-show="page+2 < Math.ceil(count/limit)" class="uk-disabled">
+            <span>...</span>
+        </li>
         <!-- last page -->
         <li v-show="page !== Math.ceil(count/limit)">
             <a href="javascript:;" v-text="Math.ceil(count/limit)" v-on:click="loadPage(Math.ceil(count/limit))"></a>
         </li>
         <!-- right-arraw -->
-        <li v-show="page !== Math.ceil(count/limit)" class="uk-margin-auto-left"><a href="javascript:;" v-on:click="loadPage(page+1)"><span uk-pagination-next></span></a></li>
+        <li v-show="page !== Math.ceil(count/limit)" class="uk-margin-auto-left">
+            <a href="javascript:;" v-on:click="loadPage(page+1)">
+                <span uk-pagination-next></span>
+            </a>
+        </li>
     </ul>
 </div>
 <!-- uk-container -->

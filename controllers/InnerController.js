@@ -6,7 +6,7 @@ module.exports = {
     },
     index: function(req, res) {
         res.render('inner', {
-            title:'Admin',
+            title: 'Admin',
             importcss: ['css/inner.css'],
             importjs: ['js/inner.js']
         })

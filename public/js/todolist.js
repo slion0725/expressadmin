@@ -18,10 +18,8 @@ window.onload = function() {
         },
         computed: {
             syncCsrfToken: {
-                get: function(){
-
-                },
-                set: function(newToken){
+                get: function() {},
+                set: function(newToken) {
                     this.csrfToken = newToken
                     axios.defaults.headers.common['X-CSRF-TOKEN'] = newToken
                 }
@@ -49,8 +47,8 @@ window.onload = function() {
                 })
             },
             submitBtn: function() {
-                axios.post('todolist',{
-                    content: this.content,
+                axios.post('todolist', {
+                    content: this.content
                 }).then(function(response) {
                     if (response.status === 200 && response.data.status === 'success') {
                         this.syncCsrfToken = response.data.csrfToken
@@ -62,7 +60,9 @@ window.onload = function() {
                 })
             },
             checkCompleted: function(id) {
-                var obj = _.find(this.rows, {'id': id})
+                var obj = _.find(this.rows, {
+                    'id': id
+                })
                 axios.put('todolist/' + id, {
                     completed: !obj.completed
                 }).then(function(response) {
@@ -79,7 +79,9 @@ window.onload = function() {
                     axios.delete('todolist/' + id).then(function(response) {
                         if (response.status === 200 && response.data.status === 'success') {
                             this.syncCsrfToken = response.data.csrfToken
-                            UIkit.notification('Cleared', {status: 'success'})
+                            UIkit.notification('Cleared', {
+                                status: 'success'
+                            })
                             this.loadPage(this.page)
                         }
                     }.bind(this)).catch(function(error) {
@@ -96,7 +98,7 @@ window.onload = function() {
             loadPage: function(page) {
                 this.page = page
                 this.getTodolist()
-            },
+            }
         }
     })
 }

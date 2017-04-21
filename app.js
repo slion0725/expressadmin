@@ -35,19 +35,26 @@ app.set('view engine', 'hbs')
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(expressValidator())
 
 // SESSION
-app.use(expressSession({secret: 'mySecret', name: 'myName'}))
+app.use(expressSession({
+    secret: 'mySecret',
+    name: 'myName'
+}))
 
 // XSS
 app.use(helmet())
 
 // CSRF
-app.use(csurf({ cookie: true }))
+app.use(csurf({
+    cookie: true
+}))
 
 // FORM-DATA
 app.use(upload.array())

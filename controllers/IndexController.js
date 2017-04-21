@@ -6,7 +6,7 @@ module.exports = {
     },
     index: function(req, res) {
         res.render('index', {
-            title:'Admin',
+            title: 'Admin',
             importcss: ['css/index.css'],
             importjs: ['js/index.js']
         })

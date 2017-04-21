@@ -1,4 +1,5 @@
 /*eslint no-console: "off"*/
+/*eslint indent: ["error", 4, { "SwitchCase": 1 }]*/
 
 var TodolistModel = require('../models/TodolistModel')
 
@@ -58,25 +59,23 @@ module.exports = {
         }
 
         switch (req.query.filter) {
-        case('active'):
-            Operators.where = {
-                completed: false
-            }
-            break
-        case('completed'):
-            Operators.where = {
-                completed: true
-            }
-            break
-        default:
-            Operators.$or = [
-                {
+            case ('active'):
+                Operators.where = {
+                    completed: false
+                }
+                break
+            case ('completed'):
+                Operators.where = {
+                    completed: true
+                }
+                break
+            default:
+                Operators.$or = [{
                     completed: true
                 }, {
                     completed: false
-                }
-            ]
-            break
+                }]
+                break
         }
 
         TodolistModel.findAndCountAll(Operators).then(function(todolists) {
@@ -96,7 +95,10 @@ module.exports = {
     },
     create: function(req, res) {
 
-        req.checkBody('content').notEmpty().isLength({min: 1, max: 255})
+        req.checkBody('content').notEmpty().isLength({
+            min: 1,
+            max: 255
+        })
 
         var errors = req.validationErrors()
         if (errors) {
@@ -104,14 +106,18 @@ module.exports = {
             return
         }
 
-        TodolistModel.create({content: req.body.content}).then(function(todolist) {
+        TodolistModel.create({
+            content: req.body.content
+        }).then(function(todolist) {
             console.log(todolist)
             res.status(200).json({
                 status: 'success',
                 csrfToken: req.csrfToken()
             })
         }).catch(function(error) {
-            res.status(422).json({status: error})
+            res.status(422).json({
+                status: error
+            })
         })
     },
     store: function(req, res) {
@@ -140,7 +146,9 @@ module.exports = {
                 csrfToken: req.csrfToken()
             })
         }).catch(function(error) {
-            res.status(422).json({status: error})
+            res.status(422).json({
+                status: error
+            })
         })
     },
     destroy: function(req, res) {
@@ -167,7 +175,9 @@ module.exports = {
                 csrfToken: req.csrfToken()
             })
         }).catch(function(error) {
-            res.status(422).json({status: error})
+            res.status(422).json({
+                status: error
+            })
         })
     }
 }
