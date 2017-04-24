@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var expressValidator = require('express-validator')
 var hbs = require('hbs')
+var hbsutils = require('hbs-utils')(hbs)
 
 // SESSIOM
 var expressSession = require('express-session')
@@ -25,8 +26,10 @@ var app = express()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
-// hbs Partials
-hbs.registerPartials(__dirname + '/views/partials')
+// hbs + hbsutils Partials
+// hbs.registerPartials(__dirname + '/views/partials')
+hbsutils.registerPartials(__dirname + '/views/partials')
+hbsutils.registerWatchedPartials(__dirname + '/views/partials')
 var blocks = {}
 hbs.registerHelper('extend', function(name, context) {
     var block = blocks[name]
