@@ -10,6 +10,8 @@ var hbsutils = require('hbs-utils')(hbs)
 
 // SESSIOM
 var expressSession = require('express-session')
+var RedisStore = require('connect-redis')(expressSession)
+var redis = require('redis')
 
 // XSS
 var helmet = require('helmet')
@@ -61,8 +63,15 @@ app.use(expressValidator())
 
 // SESSION
 app.use(expressSession({
+    store: new RedisStore({
+        host: 'localhost',
+        port: 6379,
+        client: redis.createClient(),
+        ttl: 86400
+    }),
     secret: 'mySecret',
-    name: 'myName'
+    saveUninitialized: false,
+    resave: false
 }))
 
 // XSS
