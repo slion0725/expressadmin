@@ -7,14 +7,11 @@ var notify = require('gulp-notify')
 var browserSync = require('browser-sync').create()
 var reload = browserSync.reload
 
-gulp.task('js_plugins', function() {
+gulp.task('js', function() {
     return gulp.src(
         [
             './bower_components/jquery/dist/jquery.min.js',
-            // './bower_components/bootstrap/dist/js/bootstrap.min.js',
             './bower_components/lodash/dist/lodash.min.js',
-            './bower_components/uikit/dist/js/uikit.min.js',
-            './bower_components/uikit/dist/js/uikit-icons.min.js',
             // './bower_components/vue/dist/vue.min.js',
             './bower_components/vue/dist/vue.js',
             './bower_components/holderjs/holder.min.js',
@@ -23,19 +20,30 @@ gulp.task('js_plugins', function() {
       )
       .pipe(concat('plugins.js'))
       .pipe(gulp.dest('./dist/js'))
-      .pipe(notify('JS Plugins Done'))
+      .pipe(notify('JS Done'))
 })
 
-gulp.task('css_plugins', function() {
-    return gulp.src(
+gulp.task('css', function() {
+    gulp.src(
+        [
+            // './bower_components/bootstrap/dist/js/bootstrap.min.js',
+            './bower_components/uikit/dist/js/uikit.min.js',
+            './bower_components/uikit/dist/js/uikit-icons.min.js',
+        ]
+      )
+      .pipe(concat('layout.js'))
+      .pipe(gulp.dest('./dist/js'))
+      .pipe(notify('Layout js done'))
+
+    gulp.src(
         [
             // './bower_components/bootstrap/dist/css/bootstrap.min.css',
             './bower_components/uikit/dist/css/uikit.min.css',
         ]
       )
-      .pipe(concatCss('plugins.css'))
+      .pipe(concatCss('layout.css'))
       .pipe(gulp.dest('./dist/css'))
-      .pipe(notify('CSS Plugins Done'))
+      .pipe(notify('Layout css done'))
 })
 
 gulp.task('bootstrap', function() {

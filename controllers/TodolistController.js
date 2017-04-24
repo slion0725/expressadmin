@@ -15,11 +15,12 @@ module.exports = {
         router.delete('/:id', this.destroy)
     },
     index: function(req, res) {
-        console.log(req.baseUrl)
-        res.render('todolist', {
+        res.render('todolist/todolist', {
+            basehref: req.protocol + '://' + req.get('host') + '/',
             title: 'todolist',
-            importcss: ['css/todolist.css'],
-            importjs: ['js/todolist.js']
+            importcss: ['css/plugins.css', 'css/layout.css', 'todolist/todolist.css'],
+            importjs: ['js/plugins.js', 'js/layout.js', 'todolist/todolist.js'],
+            layout: 'todolist/layout'
         })
     },
     add: function(req, res) {
