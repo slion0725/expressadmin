@@ -76,15 +76,11 @@ app.use(csurf({
 // FORM-DATA
 app.use(upload.array())
 
-// PAGE
-var index = require('./routes/index')
-var inner = require('./routes/inner')
-var todolist = require('./routes/todolist')
-
 // ROUTER
-app.use('/', index)
-app.use('/inner', inner)
-app.use('/todolist', todolist)
+app.use('/', require('./routes/index'))
+app.use('/login', require('./routes/login'))
+app.use('/inner', require('./routes/inner'))
+app.use('/todolist', require('./routes/todolist'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
