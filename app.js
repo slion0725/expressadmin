@@ -2,9 +2,15 @@ var express = require('express')
 var path = require('path')
 // var favicon = require('serve-favicon')
 var logger = require('morgan')
+
+// parser
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
+
+// validator
 var expressValidator = require('express-validator')
+
+// handlebars
 var hbs = require('hbs')
 var hbsutils = require('hbs-utils')(hbs)
 
@@ -71,7 +77,7 @@ app.use(expressSession({
     }),
     secret: 'mySecret',
     saveUninitialized: false,
-    resave: false
+    resave: true
 }))
 
 // XSS
@@ -89,6 +95,7 @@ app.use(upload.array())
 app.use('/', require('./routes/index'))
 app.use('/login', require('./routes/login'))
 app.use('/inner', require('./routes/inner'))
+app.use('/register', require('./routes/register'))
 app.use('/todolist', require('./routes/todolist'))
 
 // catch 404 and forward to error handler
