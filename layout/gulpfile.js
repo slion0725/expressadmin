@@ -19,6 +19,7 @@ gulp.task('js', function() {
             './bower_components/moment-timezone/builds/moment-timezone-with-data.min.js',
             // './bower_components/vue/dist/vue.min.js',
             './bower_components/vue/dist/vue.js',
+            './bower_components/vee-validate/dist/vee-validate.min.js',
         ]
         )
         .pipe(concat('plugins.js'))
@@ -76,15 +77,15 @@ gulp.task('css', function() {
 
 gulp.task('files', function() {
     gulp.src('./bower_components/bootstrap/dist/fonts/*.*', {
-        base: 'bower_components/bootstrap/dist'
+        base: 'bower_components'
     }).pipe(gulp.dest('./dist'))
 
     gulp.src('./bower_components/font-awesome/fonts/*.*', {
-        base: 'bower_components/font-awesome'
+        base: 'bower_components'
     }).pipe(gulp.dest('./dist'))
 
     gulp.src('bower_components/jqueryfiletree/dist/images/*.*', {
-        base: 'bower_components/jqueryfiletree/dist'
+        base: 'bower_components'
     }).pipe(gulp.dest('./dist'))
 
     gulp.src('bower_components/malihu-custom-scrollbar-plugin/*.png', {

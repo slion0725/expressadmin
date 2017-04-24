@@ -2,35 +2,43 @@
 
 {{> navbar}}
 
+<style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form autocomplete="off" class="form-horizontal" role="form" id="register-form">
-                        <div class="form-group">
+                    <form autocomplete="off" class="form-horizontal" role="form" id="register-form" novalidate v-on:submit.prevent="validateForm">
+                        <div class="form-group has-feedback" v-bind:class="{'has-error': errors.has('name')}">
                             <label for="name" class="col-md-4 control-label">Name</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="text" name="name" placeholder="name" maxlength="255" required>
+                                <input type="text" class="form-control" name="name" placeholder="name" v-model.trim="name" v-validate="{rules:'required|min:1|max:255'}">
+                                <span v-show="errors.has('name')" v-cloak class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                <span v-show="errors.has('name')" v-cloak class="help-block" v-text="errors.first('name')"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">Email</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" maxlength="255" required>
+                                <input type="email" class="form-control" name="email" placeholder="Email" v-model.trim="email" v-validate="{rules:'required|email|max:255'}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-md-4 control-label">Password</label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" minlength="6" required>
+                                <input type="password" class="form-control" name="password" placeholder="Password" v-model.trim="password" v-validate="{rules:'required|min:6|max:10'}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password_confirmation" class="col-md-4 control-label">Confirm Password</label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" required data-fv-identical="true" data-fv-identical-field="password">
+                                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" v-validate="{rules:'required|min:6|max:10'}">
                             </div>
                         </div>
                         <div class="form-group">
