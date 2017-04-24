@@ -4,9 +4,10 @@ module.exports = {
     },
     index: function(req, res) {
         res.render('inner', {
+            basehref: req.protocol + '://' + req.get('host') + '/',
             title: 'Admin',
-            importcss: ['css/inner.css'],
-            importjs: ['js/inner.js']
+            // importcss: ['css/inner.css'],
+            // importjs: ['js/inner.js']
         })
     }
 }

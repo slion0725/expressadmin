@@ -5,6 +5,7 @@ var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var expressValidator = require('express-validator')
+var hbs = require('hbs')
 
 // SESSIOM
 var expressSession = require('express-session')
@@ -19,14 +20,10 @@ var csurf = require('csurf')
 var multer = require('multer')
 var upload = multer()
 
-// PAGE
-var index = require('./routes/index')
-var inner = require('./routes/inner')
-var users = require('./routes/users')
-var todolist = require('./routes/todolist')
-
 var app = express()
 
+// hbs Partials
+hbs.registerPartials(__dirname + '/views/partials')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
@@ -59,10 +56,14 @@ app.use(csurf({
 // FORM-DATA
 app.use(upload.array())
 
+// PAGE
+var index = require('./routes/index')
+var inner = require('./routes/inner')
+var todolist = require('./routes/todolist')
+
 // ROUTER
 app.use('/', index)
 app.use('/inner', inner)
-app.use('/users', users)
 app.use('/todolist', todolist)
 
 // catch 404 and forward to error handler

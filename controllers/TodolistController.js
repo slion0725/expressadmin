@@ -18,8 +18,8 @@ module.exports = {
         res.render('todolist/todolist', {
             basehref: req.protocol + '://' + req.get('host') + '/',
             title: 'todolist',
-            importcss: ['css/plugins.css', 'css/layout.css', 'todolist/todolist.css'],
-            importjs: ['js/plugins.js', 'js/layout.js', 'todolist/todolist.js'],
+            importcss: ['todolist/layout.css', 'todolist/todolist.css'],
+            importjs: ['js/plugins.js', 'todolist/layout.js', 'todolist/todolist.js'],
             layout: 'todolist/layout'
         })
     },
