@@ -1,5 +1,3 @@
-/*eslint no-console: "off"*/
-
 module.exports = {
     routes: function(router) {
         router.get('/', this.index)

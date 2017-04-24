@@ -1,5 +1,4 @@
 /*global _, axios, UIkit, Vue*/
-/*eslint no-console: "off"*/
 
 window.onload = function() {
     new Vue({

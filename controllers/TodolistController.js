@@ -1,6 +1,3 @@
-/*eslint no-console: "off"*/
-/*eslint indent: ["error", 4, { "SwitchCase": 1 }]*/
-
 var TodolistModel = require('../models/TodolistModel')
 
 module.exports = {
