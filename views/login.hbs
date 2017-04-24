@@ -1,26 +1,4 @@
-{{#extend "body"}}
-
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-login">
-              <span class="sr-only">Toggle Navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-            <a class="navbar-brand" href="/">Admin</a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-login">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/register">Register</a></li>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+{{#extend "layout"}}
 
 <div class="container">
     <div class="row">
@@ -66,7 +44,4 @@
         </div>
     </div>
 </div>
-
-{{> loading}}
-
 {{/extend}}
