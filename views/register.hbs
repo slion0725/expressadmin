@@ -9,30 +9,36 @@
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     <form autocomplete="off" class="form-horizontal" role="form" id="register-form" novalidate v-on:submit.prevent="validateForm">
-                        <div class="form-group has-feedback" v-bind:class="{'has-error': errors.has('name')}">
+                        <div class="form-group has-feedback" v-bind:class="{'has-error': errors.has('name'), 'has-success': fields.passed('name')}">
                             <label for="name" class="col-md-4 control-label">Name</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="name" placeholder="name" v-model.trim="name" v-validate="{rules:'required|min:1|max:255'}">
-                                <span v-show="errors.has('name')" v-cloak class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                <span v-show="errors.has('name') || fields.passed('name')" v-cloak class="glyphicon form-control-feedback" v-bind:class="{'glyphicon-remove': errors.has('name'), 'glyphicon-ok': fields.passed('name')}"></span>
                                 <span v-show="errors.has('name')" v-cloak class="help-block" v-text="errors.first('name')"></span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-feedback" v-bind:class="{'has-error': errors.has('email'), 'has-success': fields.passed('email')}">
                             <label for="email" class="col-md-4 control-label">Email</label>
                             <div class="col-md-6">
                                 <input type="email" class="form-control" name="email" placeholder="Email" v-model.trim="email" v-validate="{rules:'required|email|max:255'}">
+                                <span v-show="errors.has('email') || fields.passed('email')" v-cloak class="glyphicon form-control-feedback" v-bind:class="{'glyphicon-remove': errors.has('email'), 'glyphicon-ok': fields.passed('email')}"></span>
+                                <span v-show="errors.has('email')" v-cloak class="help-block" v-text="errors.first('email')"></span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-feedback" v-bind:class="{'has-error': errors.has('password'), 'has-success': fields.passed('password')}">
                             <label for="password" class="col-md-4 control-label">Password</label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password" placeholder="Password" v-model.trim="password" v-validate="{rules:'required|min:6|max:10'}">
+                                <input type="password" class="form-control" name="password" placeholder="Password" v-model.trim="password" v-validate="{rules:'required|min:6|max:20'}">
+                                <span v-show="errors.has('password') || fields.passed('password')" v-cloak class="glyphicon form-control-feedback" v-bind:class="{'glyphicon-remove': errors.has('password'), 'glyphicon-ok': fields.passed('password')}"></span>
+                                <span v-show="errors.has('password')" v-cloak class="help-block" v-text="errors.first('password')"></span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="password_confirmation" class="col-md-4 control-label">Confirm Password</label>
+                        <div class="form-group has-feedback" v-bind:class="{'has-error': errors.has('confirmpassword'), 'has-success': fields.passed('confirmpassword')}">
+                            <label for="confirmpassword" class="col-md-4 control-label">Confirm Password</label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" v-validate="{rules:'required|min:6|max:10'}">
+                                <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" v-model.trim="confirmpassword" v-validate="{rules:'required|min:6|max:20|confirmed:password'}">
+                                <span v-show="errors.has('confirmpassword') || fields.passed('confirmpassword')" v-cloak class="glyphicon form-control-feedback" v-bind:class="{'glyphicon-remove': errors.has('confirmpassword'), 'glyphicon-ok': fields.passed('confirmpassword')}"></span>
+                                <span v-show="errors.has('confirmpassword')" v-cloak class="help-block" v-text="errors.first('confirmpassword')"></span>
                             </div>
                         </div>
                         <div class="form-group">

@@ -3,6 +3,7 @@ var UsersModel = require('../models/UsersModel')
 module.exports = {
     routes: function(router) {
         router.get('/', this.index)
+        router.get('/token', this.token)
         router.post('/', this.create)
     },
     index: function(req, res) {
@@ -10,6 +11,12 @@ module.exports = {
             basehref: req.protocol + '://' + req.get('host') + '/',
             title: 'Admin',
             importjs: ['js/register.js']
+        })
+    },
+    token: function(req, res) {
+        res.status(200).json({
+            status: 'success',
+            csrfToken: req.csrfToken()
         })
     },
     create: function(req, res) {
@@ -25,7 +32,7 @@ module.exports = {
 
         req.checkBody('password').notEmpty().isLength({
             min: 1,
-            max: 255
+            max: 20
         })
 
         var errors = req.validationErrors()
@@ -38,8 +45,8 @@ module.exports = {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password
-        }).then(function(todolist) {
-            console.log(todolist)
+        }).then(function(users) {
+            console.log(users)
             res.status(200).json({
                 status: 'success',
                 csrfToken: req.csrfToken()
