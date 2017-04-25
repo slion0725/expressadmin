@@ -13,6 +13,11 @@ module.exports = db.define('users', {
     password: {
         type: Sequelize.STRING,
         field: 'password'
+    },
+    verify: {
+        type: Sequelize.BOOLEAN,
+        field: 'verify',
+        defaultValue: false,
     }
 }, {
     freezeTableName: true

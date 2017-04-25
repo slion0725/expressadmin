@@ -39,7 +39,10 @@ module.exports = {
 
         var errors = req.validationErrors()
         if (errors) {
-            res.status(422).json(errors)
+            res.status(422).json({
+                status: errors,
+                csrfToken: req.csrfToken()
+            })
             return
         }
 
@@ -100,7 +103,10 @@ module.exports = {
 
         var errors = req.validationErrors()
         if (errors) {
-            res.status(422).json(errors)
+            res.status(422).json({
+                status: errors,
+                csrfToken: req.csrfToken()
+            })
             return
         }
 
@@ -114,7 +120,8 @@ module.exports = {
             })
         }).catch(function(error) {
             res.status(422).json({
-                status: error
+                status: error,
+                csrfToken: req.csrfToken()
             })
         })
     },
@@ -125,7 +132,10 @@ module.exports = {
 
         var errors = req.validationErrors()
         if (errors) {
-            res.status(422).json(errors)
+            res.status(422).json({
+                status: errors,
+                csrfToken: req.csrfToken()
+            })
             return
         }
 
@@ -145,7 +155,8 @@ module.exports = {
             })
         }).catch(function(error) {
             res.status(422).json({
-                status: error
+                status: error,
+                csrfToken: req.csrfToken()
             })
         })
     },
@@ -155,8 +166,10 @@ module.exports = {
 
         var errors = req.validationErrors()
         if (errors) {
-            console.log(errors)
-            res.status(422).json(errors)
+            res.status(422).json({
+                status: errors,
+                csrfToken: req.csrfToken()
+            })
             return
         }
 
@@ -174,7 +187,8 @@ module.exports = {
             })
         }).catch(function(error) {
             res.status(422).json({
-                status: error
+                status: error,
+                csrfToken: req.csrfToken()
             })
         })
     }
