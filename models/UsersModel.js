@@ -17,7 +17,7 @@ module.exports = db.define('users', {
     verify: {
         type: Sequelize.BOOLEAN,
         field: 'verify',
-        defaultValue: false,
+        defaultValue: false
     }
 }, {
     freezeTableName: true
