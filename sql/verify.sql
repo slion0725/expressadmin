@@ -1,10 +1,8 @@
 CREATE TABLE `verify` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `from` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `verify` varchar(10) DEFAULT NULL,
-  `createdAt` datetime DEFAULT NULL,
-  `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-);
+  `from` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `verify` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  UNIQUE KEY `verify_email_UNIQUE` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

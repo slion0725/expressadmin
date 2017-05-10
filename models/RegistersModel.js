@@ -1,7 +1,7 @@
 var db = require('../configs/DatabaseConfig.js')
 var Sequelize = require('sequelize')
 
-module.exports = db.define('users', {
+module.exports = db.define('registers', {
     email: {
         type: Sequelize.STRING,
         field: 'email'
@@ -13,10 +13,6 @@ module.exports = db.define('users', {
     password: {
         type: Sequelize.STRING,
         field: 'password'
-    },
-    verify: {
-        type: Sequelize.STRING,
-        field: 'verify'
     }
 }, {
     freezeTableName: true,

@@ -15,5 +15,8 @@ module.exports = db.define('verify', {
         field: 'verify'
     }
 }, {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
 })

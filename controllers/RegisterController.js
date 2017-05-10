@@ -1,11 +1,14 @@
 var UsersModel = require('../models/UsersModel')
-var Sendmail = require('../lib/RegisterSendmail')
+var RegistersModel = require('../models/RegistersModel')
+var VerifyModel = require('../models/VerifyModel')
+var RegisterSendmail = require('../lib/RegisterSendmail')
 
 module.exports = {
     routes: function(router) {
         router.get('/', this.index)
         router.get('/token', this.token)
         router.post('/', this.create)
+        router.get('/verify/:email/:verify', this.verify)
     },
     index: function(req, res) {
         res.render('register', {
@@ -62,13 +65,16 @@ module.exports = {
             }
         })
 
-        UsersModel.upsert({
+        RegistersModel.upsert({
             name: req.body.name,
             email: req.body.email,
             password: req.body.password
         }).then(function(result) {
             console.log(result)
-            Sendmail.SendMail(req.body.email)
+            RegisterSendmail.BaseUrl = 'http://localhost:3000/register/verify'
+            RegisterSendmail.UserEmail = req.body.email
+            RegisterSendmail.VerifyUrl()
+            // RegisterSendmail.SendMail()
 
             res.status(200).json({
                 status: 'success',
@@ -79,6 +85,61 @@ module.exports = {
                 status: 'error',
                 msg: error,
                 csrfToken: req.csrfToken()
+            })
+        })
+    },
+    verify: function(req, res) {
+        VerifyModel.count({
+            where: {
+                from: 'Register',
+                email: req.params.email,
+                verify: req.params.verify
+            }
+        }).then(function(result) {
+            if (result === 0) {
+                res.render('na', {
+                    basehref: req.protocol + '://' + req.get('host') + '/',
+                    title: 'Admin',
+                    message: 'Not Found Verify Data'
+                })
+                return
+            }
+
+            RegistersModel.findOne({
+                where: {
+                    email: req.params.email
+                }
+            }).then(function(result) {
+                UsersModel.create({
+                    name: result.name,
+                    email: result.email,
+                    password: result.password,
+                }).then(function() {
+                    VerifyModel.destroy({
+                        where: {
+                            email: req.params.email
+                        }
+                    })
+
+                    RegistersModel.destroy({
+                        where: {
+                            email: req.params.email
+                        }
+                    })
+
+                    res.render('na', {
+                        basehref: req.protocol + '://' + req.get('host') + '/',
+                        title: 'Admin',
+                        message: 'Success'
+                    })
+
+                }).catch(function(error) {
+                    res.render('na', {
+                        basehref: req.protocol + '://' + req.get('host') + '/',
+                        title: 'Admin',
+                        message: error
+                    })
+                })
             })
         })
     }

@@ -12,5 +12,6 @@ module.exports = db.define('todolist', {
         defaultValue: false,
     }
 }, {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: true
 })
