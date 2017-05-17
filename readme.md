@@ -2,16 +2,16 @@
 express js + admin + todolist
 
 #### todolist
-- ~~todolist~~
-- ~~page~~
+*   ~~todolist~~
+*   ~~page~~
 
 #### work list
-- ~~index~~
-- ~~register~~
-- register send email
-- validate email
-- login
-- logout
-- datatable
-- menu
-- submenu
+*   ~~index~~
+*   ~~register~~
+*   ~~register send email~~
+*   ~~verify email~~
+*   login
+*   logout
+*   datatable
+*   menu
+*   submenu

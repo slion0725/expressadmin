@@ -73,7 +73,9 @@ module.exports = {
             console.log(result)
             RegisterSendmail.BaseUrl = 'http://localhost:3000/register/verify'
             RegisterSendmail.UserEmail = req.body.email
+            // DEV
             RegisterSendmail.VerifyUrl()
+            // PROD
             // RegisterSendmail.SendMail()
 
             res.status(200).json({
