@@ -13,10 +13,6 @@ module.exports = db.define('users', {
     password: {
         type: Sequelize.STRING,
         field: 'password'
-    },
-    verify: {
-        type: Sequelize.STRING,
-        field: 'verify'
     }
 }, {
     freezeTableName: true,

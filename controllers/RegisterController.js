@@ -52,7 +52,6 @@ module.exports = {
         UsersModel.count({
             where: {
                 email: req.body.email,
-                verify: true
             }
         }).then(function(result) {
             if (result !== 0) {
