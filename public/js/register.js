@@ -24,7 +24,7 @@ window.onload = function() {
         },
         methods: {
             getToken: function() {
-                axios.get('register/token').then(function(response) {
+                axios.get('/token').then(function(response) {
                     if (response.status === 200 && response.data.status === 'success') {
                         this.syncCsrfToken = response.data.csrfToken
                     }

@@ -6,7 +6,6 @@ var RegisterSendmail = require('../lib/RegisterSendmail')
 module.exports = {
     routes: function(router) {
         router.get('/', this.index)
-        router.get('/token', this.token)
         router.post('/', this.create)
         router.get('/verify/:email/:verify', this.verify)
     },
@@ -15,12 +14,6 @@ module.exports = {
             basehref: req.protocol + '://' + req.get('host') + '/',
             title: 'Admin',
             importjs: ['js/register.js']
-        })
-    },
-    token: function(req, res) {
-        res.status(200).json({
-            status: 'success',
-            csrfToken: req.csrfToken()
         })
     },
     create: function(req, res) {

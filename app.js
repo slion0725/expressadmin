@@ -39,7 +39,7 @@ app.set('view engine', 'hbs')
 hbsutils.registerPartials(__dirname + '/views/partials')
 hbsutils.registerWatchedPartials(__dirname + '/views/partials')
 var blocks = {}
-hbs.registerHelper('extend', function(name, context) {
+hbs.registerHelper('extend', function (name, context) {
     var block = blocks[name]
     if (!block) {
         block = blocks[name] = []
@@ -48,7 +48,7 @@ hbs.registerHelper('extend', function(name, context) {
     block.push(context.fn(this))
 })
 
-hbs.registerHelper('block', function(name) {
+hbs.registerHelper('block', function (name) {
     var val = (blocks[name] || []).join('\n')
 
     // clear the block
@@ -91,15 +91,24 @@ app.use(csurf({
 // FORM-DATA
 app.use(upload.array())
 
+// Passport
+var passport = require('./lib/Passport')
+// var ensurelogin = require('connect-ensure-login');
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 // ROUTER
 app.use('/', require('./routes/index'))
+app.use('/token', require('./routes/token'))
+app.use('/logout', require('./routes/logout'))
 app.use('/login', require('./routes/login'))
 app.use('/inner', require('./routes/inner'))
 app.use('/register', require('./routes/register'))
 app.use('/todolist', require('./routes/todolist'))
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found')
     err.status = 404
 
@@ -123,7 +132,8 @@ app.use(function(req, res, next) {
 })
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
+    console.log(err)
     // set locals, only providing error in development
     res.locals.message = err.message
     res.locals.error = req.app.get('env') === 'development' ? err : {}

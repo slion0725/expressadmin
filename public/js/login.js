@@ -23,7 +23,7 @@ window.onload = function() {
         },
         methods: {
             getToken: function() {
-                axios.get('register/token').then(function(response) {
+                axios.get('/token').then(function(response) {
                     if (response.status === 200 && response.data.status === 'success') {
                         this.syncCsrfToken = response.data.csrfToken
                     }
@@ -48,6 +48,7 @@ window.onload = function() {
                 }).then(function(response) {
                     if (response.status === 200 && response.data.status === 'success') {
                         this.syncCsrfToken = response.data.csrfToken
+                        window.location.replace('/inner')
                         this.notify(response.data.msg, 'success')
                     }
                 }.bind(this)).catch(function(error) {
